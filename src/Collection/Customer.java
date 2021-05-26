@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-class Person{
+class Person {
     protected String name;
     protected int age;
     protected char gender;
@@ -14,139 +15,192 @@ class Person{
 }
 
 public class Customer {
-    private Person client;
-    private int members;
-    private Location[] bucketList;
-    private Location[] shortestRoute;
-    private float budget;
+    protected Person client;
+    protected int members;
+    protected Location[] bucketList;
+    protected ArrayList<Integer> choices;
+    protected Location[] shortestRoute;
+    // private float budget;
 
     public Customer() {
-        bucketList=new Location[5];
+        bucketList = new Location[10];
+        choices = new ArrayList<>();
     }
-    public void acceptDetails(){
-        Scanner input=new Scanner(System.in);
+
+    public void acceptDetails() {
+        Scanner input = new Scanner(System.in);
         System.out.print("Enter your name: ");
-        client.name=input.nextLine();
+        client.name = input.nextLine();
         System.out.print("Enter number of tickets you want to book: ");
-        this.members=input.nextInt();
+        this.members = input.nextInt();
     }
 
-    public void questionnaire(){
+    public void questionnaire() {
 
     }
 
 
-    public void acceptBucket(){
-        Scanner input=new Scanner(System.in);
+    public void acceptBucket(Location[] allPlaces) {
+        Scanner input = new Scanner(System.in);
+
         System.out.println("Make your bucket list");
-        System.out.println("1.Spain\n2.France\n3.Germany\n0.Go back to main menu");
-        int choose=-1 ;
-        int b=0;
-        ArrayList<Integer> choices=new ArrayList<>();
-        System.out.print("Enter country numbers you want to visit (Enter 0 to stop):  ");
-        while(choose!=0){
-            System.out.print("Enter: ");
-            choose=input.nextInt();
-            switch (choose){
+        for (int i=1;i<allPlaces.length;i++){
+            System.out.println(i+". "+allPlaces[i].name);
+        }
+        System.out.println("0.Go back to main menu");
+        int choose = -1;
+        int b = 1;
+        ArrayList<Integer> choices = new ArrayList<>();
+        choices.add(0);
+        bucketList[0] = new Location();
+        bucketList[0].name = "India";
+        System.out.println("Enter country numbers you want to visit (Enter 0 to stop):  ");
+        while (choose != 0) {
+           // System.out.print("Enter: ");
+            choose = input.nextInt();
+            if(choose!=0) {
+                choices.add(choose);
+                bucketList[b] = new Location();
+                bucketList[b].name = allPlaces[choose].name;
+                System.out.println(bucketList[b].name + " Added");
+                b += 1;
+            }
+            /*switch (choose) {
                 case 0:
                     System.out.println("Going back");
                     break;
-                case 1: choices.add(1);
-                        bucketList[b]=new Location();
-                        bucketList[b].name="Spain";
-                        b+=1;
-                        break;
-                case 2: choices.add(2);
-                        bucketList[b]=new Location();
-                        bucketList[b].name="France";
-                        b+=1;
-                        break;
-                case 3: choices.add(3);
-                        bucketList[b]=new Location();
-                        bucketList[b].name="Germany";
-                        b+=1;
-                        break;
+                case 1:
+                    choices.add(1);
+                    bucketList[b] = new Location();
+                    bucketList[b].name = allPlaces[1].name;
+                    System.out.println(bucketList[b].name + " Added");
+                    b += 1;
+                    break;
+                case 2:
+                    choices.add(2);
+                    bucketList[b] = new Location();
+                    bucketList[b].name = allPlaces[2].name;
+                    System.out.println(bucketList[b].name + " Added");
+                    b += 1;
+                    break;
+                case 3:
+                    choices.add(3);
+                    bucketList[b] = new Location();
+                    bucketList[b].name = allPlaces[3].name;
+                    System.out.println(bucketList[b].name + " Added");
+                    b += 1;
+                    break;
                 default:
                     System.out.println("Please enter correct choice.");
-            }
+                    break;
+            }*/
         }
-
-       /* BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
-        while ((row = csvReader.readLine()) != null) {
-            String[] data = row.split(",");
-            // do something with the data
-        }
-        csvReader.close();*/
 
 
         String line = "";
         String splitBy = ",";
-        try
-        {
+
+        try {
             BufferedReader br = new BufferedReader(new FileReader("src\\Europe.csv"));
-            double [][] graph=new double[choices.size()][choices.size()];
+            System.out.println("Choice size "+choices.size());
+            double[][] graph = new double[choices.size()][choices.size()];                                  // l for locArr traversal
             while ((line = br.readLine()) != null)   //returns a Boolean value
             {
                 String[] country = line.split(splitBy);    // use comma as separator
 
-                for(int m=0;m<choices.size();m++){
-                    if(bucketList[m].name.equals(country[0])){
-                        System.out.println(country[0]+" Added");
-                        graph[m]=new double[choices.size()];
-                        for(int j=0;j<choices.size();j++){
-                            graph[m][j]=Double.parseDouble(country[choices.get(j)]);
+                for (int m = 0; m < choices.size(); m++) {          //m for bucketList traversal
+                    if (bucketList[m].name.equals(country[0])) {
+
+                        graph[m] = new double[choices.size()];
+                        for (int j = 0; j < choices.size(); j++) {
+                            graph[m][j] = Double.parseDouble(country[choices.get(j) + 1]);  //1 3
+                            graph[j][m] = Double.parseDouble(country[choices.get(j) + 1]);
                         }
+                        break;
                     }
                 }
             }
-            for(int x=0;x<graph.length;x++){
-                for(int y =0 ;y<graph[x].length;y++){
-                    System.out.print("***"+graph[x][y]+"   ");
+
+            System.out.println("Graph row and col "+graph.length+"  "+graph[0].length);
+
+
+            for (int i=0;i< graph.length;i++) {
+                for (int j=0;j<graph[i].length;j++) {
+                    System.out.print("***" + graph[i][j] + "   ");
                 }
                 System.out.println();
             }
-        }
-        catch (IOException e)
-        {
+            computeShortestPath(choices, graph);
+        } catch (
+                IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
 
+    public List<Integer> findMinRoute(double[][] tsp) {
+        double sum = 0;
+        int counter = 0;
+        int j = 0, i = 0;
+        double min = Double.MAX_VALUE;
+        List<Integer> visitedRouteList = new ArrayList<>();
 
-    static int tsp(int[][] graph, boolean[] v, int currPos, int n, int count, int cost, int ans)
-    {
+        visitedRouteList.add(0);
+        int[] route = new int[tsp.length];
 
-        // If last node is reached and it has a link
-        // to the starting node i.e the source then
-        // keep the minimum value out of the total cost
-        // of traversal and "ans"
-        // Finally return to check for more possible values
-        if (count == n && graph[currPos][0] > 0)
-        {
-            ans = Math.min(ans, cost + graph[currPos][0]);
-            return ans;
-        }
 
-        // BACKTRACKING STEP
-        // Loop to traverse the adjacency list
-        // of currPos node and increasing the count
-        // by 1 and cost by graph[currPos,i] value
-        for (int i = 0; i < n; i++)
-        {
-            if (!v[i] && graph[currPos][i] > 0)
-            {
+        while (i < tsp.length && j < tsp[i].length) {
 
-                // Mark as visited
-                v[i] = true;
-                System.out.println("vertex: "+i+"***  cost: "+cost);
-                ans = tsp(graph, v, i, n, count + 1, cost + graph[currPos][i], ans);
+            // Corner of the Matrix
+            if (counter >= tsp[i].length - 1) {
+                break;
+            }
 
-                // Mark ith node as unvisited
-                v[i] = false;
+
+            if (j != i && !(visitedRouteList.contains(j))) {
+                if (tsp[i][j] < min) {
+                    min = tsp[i][j];
+                    route[counter] = j + 1;
+                }
+            }
+            j++;
+
+            if (j == tsp[i].length) {
+                sum += min;
+                min = Integer.MAX_VALUE;
+                visitedRouteList.add(route[counter] - 1);
+                j = 0;
+                i = route[counter] - 1;
+                counter++;
             }
         }
-        return ans;
+
+        i = route[counter - 1] - 1;
+
+        for (j = 0; j < tsp.length; j++) {
+
+            if ((i != j) && tsp[i][j] < min) {
+                min = tsp[i][j];
+                route[counter] = j + 1;
+            }
+        }
+
+        sum += min;
+
+        System.out.print("Minimum Duration is : ");
+        System.out.println(sum);
+
+        System.out.println("ArrayList after addition of an element : " + visitedRouteList);
+        return visitedRouteList;
     }
 
+    void computeShortestPath(ArrayList<Integer> choices, double[][] graph) {
+        List<Integer> visitedRouteList = findMinRoute(graph);
+        System.out.println("ROUTE");
+        for (int i = 0; i < visitedRouteList.size(); i++) {                         //
+            System.out.print(bucketList[visitedRouteList.get(i)].name + " ===> ");
+        }
+    }
 }
