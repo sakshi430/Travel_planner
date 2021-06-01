@@ -3,7 +3,7 @@ package Collection;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+//done??
 public class Main {
 
     static int check(){                    //check if the input entered by the user is int or not
