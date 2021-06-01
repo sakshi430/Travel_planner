@@ -3,11 +3,11 @@ package Collection;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-//done??
 public class Main {
 
     static int check(){                    //check if the input entered by the user is int or not
         Scanner sc=new Scanner(System.in);
+        System.out.print("\t\tEnter input: ");
         String temp=sc.next();
 
         boolean flag=true;
@@ -150,15 +150,20 @@ public class Main {
         int details = 0;
         do {
             flag1 = false;
-            System.out.println("\t\t\tPlease select a kind of user:");
-            System.out.println("\t\t\t\t1.New User\t\t\t2.Existing User\t\t\t\t3.Exit");
+            System.out.println("\n\t\t\tPlease select the type of user:");
+
+            System.out.println("\t\t________________________________________________________");
+            System.out.println("\n\t\t\t\t1.New User\n\t\t\t\t2.Existing User\n\t\t\t\t3.Exit");
+            System.out.println("\t\t________________________________________________________");
+
 
             opt = check();
             switch (opt) {
                 case 1: //new user
                     do {
-                        System.out.println("\n\t\t\t\tNEW USER\n");
 
+                        System.out.println("\n\t\t________________________________________________________");
+                        System.out.println("\t\t\t\t**  NEW USER  **\n");
 
                       //  System.out.println("Password is "+c.password);
                         if (c.password.equals("")) {
@@ -167,10 +172,12 @@ public class Main {
                             //c.id= idBase+count*2 ;//Math.random()   maintain min and max
                             count++;
                             min += 10;
-                            System.out.print("Create Password: ");
+                            System.out.print("\t\tCreate Password: ");
                             c.password = sc.next();
-                            System.out.println("Registration is successful!");
-                            System.out.println("Your customer id is " + c.id + ",  keep it for future reference.");
+                            System.out.println("\t\tRegistration is successful!");
+                            System.out.println("\t\t_____________________________________________________________");
+                            System.out.println("\t\t|\tYour customer id is " + c.id + ",  keep it for future reference.\t|");
+                            System.out.println("\t\t-------------------------------------------------------------");
                         }
                         //initialize a customer from the array of user
 
@@ -178,8 +185,8 @@ public class Main {
                         //save the password, name, id(random)  --->customer che variables...
                         //message...registration is successful...
                         //this is ur id, keep it for future reference
-                        System.out.println("\t\t\tChoose the type of details you want to enter:");
-                        System.out.println("\t\t\t1.Personal Detailst\t\t\t2.Travel Details\t\t\t\t3.Backt\t\t\t ");
+                        System.out.println("\n\t\t\tChoose the type of details you want to enter:");
+                        System.out.println("\t\t\t1.Personal Details\t\t\n\t\t\t2.Travel Details\t\n\t\t\t3.Back ");
                         opt1 = check();
                         switch (opt1) {
                             case 1://personal details
@@ -187,9 +194,11 @@ public class Main {
                                 flag1 = true;
                                 break;
                             case 2:// Travel details
-                                if (!flag1) System.out.println("Please fill personal details first as you are a new user!");
+                                if (!flag1) System.out.println("\t\tPlease fill personal details first as you are a new user!");
                                 else {
-                                    System.out.println("Which continent do you want to visit?\n1.Europe\n2.Asia\n3.North America\n");
+
+                                    System.out.println("\t\t________________________________________________________");
+                                    System.out.println("\t\tWhich continent do you want to visit?\n\t\t1.Europe\n\t\t2.Asia\n\t\t3.North America\n");
                                     int countiChoice=check();
                                     while (true) {
                                         //countiChoice = ;
@@ -207,13 +216,13 @@ public class Main {
                                     hash.create(c);
 
                                 }
-                                System.out.println("\n\n* For modifications,Please visit 'existing user' section");
+                                System.out.println("\n\n\t\t** For modifications,Please visit 'existing user' section **");
                                 break;
                             case 3:c=new Customer();
                                 break;
 
                             default:
-                                System.out.println("Invalid input!!");
+                                System.out.println("\t\tInvalid input!!");
                                 break;
                         }
 
@@ -226,30 +235,33 @@ public class Main {
                     //do {
                     boolean exitoption=false;
                     boolean password_validation=false;
-                    System.out.println("\n\t\t\t***** EXISTING USER *****");
-                    System.out.println("Please enter your customer id : ");
+
+                    System.out.println("\n\t\t________________________________________________________");
+                    System.out.println("\t\t\t**  EXISTING USER  **");
+                    System.out.println();
+                    System.out.println("\t\tPlease enter your customer id : ");
                     int custId = check();
                     Customer temp = hash.search(custId);
                     if (temp==null) {
-                        System.out.println("You are not registered... Please enter new user and register!!");
+                        System.out.println("\t\tYou are not registered... Please enter new user and register!!");
                         c=new Customer();
                         break;
                     }
                     else c=temp;
-                    System.out.println("Enter password : ");
+                    System.out.print("\t\tEnter password : ");
                     String password = sc.next();
                     //c = hash.search(password);
                     while(!password_validation){
                         if(c.password.equals(password)){
-                            System.out.println("Login is Successful!!");
+                            System.out.println("\t\tLogin is Successful!!");
                             password_validation=true;
                         }
                         else{
-                            System.out.println("Invalid password");
-                            System.out.println("1)Re-enter or 2)Exit");
+                            System.out.println("\t\tInvalid password !!");
+                            System.out.println("\t\t1)Re-enter or 2)Exit");
                             int choice= check();
                             if(choice==1){
-                                System.out.println("Please re-enter.. ");
+                                System.out.print("\t\tPlease re-enter : ");
                                 password = sc.next();
                             }
                             else {
@@ -267,8 +279,12 @@ public class Main {
                     //1)hashing search-->id not registered!!
                     //if id-yes....and password do not match...1)reenter 2)go to main menu & register as a new user, go back
                     do {
-                        System.out.println("Please select the type of operation that you would like to perform:");
-                        System.out.println("\n\t\t\t1.View Personal Details\n\t\t\t2.View Travel Details\n\t\t\t3.Edit Details\n\t\t\t4.Back");
+                        System.out.println("\n\t\tSelect the operation that you would like to perform:");
+
+                        System.out.println("\t\t________________________________________________________");
+                        System.out.println("\t\t\t1.View Personal Details\n\t\t\t2.View Travel Details\n\t\t\t3.Edit Details\n\t\t\t4.Back");
+
+                        System.out.println("\t\t________________________________________________________");
                         opt2 = check();
                         //opt2;
                         switch (opt2) {
@@ -286,34 +302,46 @@ public class Main {
                                 do {
                                     System.out.println("\n\t\t\t***** EDIT INFORMATION *****");
                                     System.out.println("\n\t\tPlease select among the editing options:");
+
+                                    System.out.println("\t\t________________________________________________________");
                                     System.out.println("\t\t\t\t1.Modify\n\t\t\t\t2.Back\n\t\t\t\t");
+
+                                    System.out.println("\t\t________________________________________________________");
                                     opt3 = check();
                                     switch (opt3) {
                                         case 1://modify personal or travel detail
                                             do {
                                                 boolean modification=false;
-                                                System.out.println("\n\tChoose The Type Of Details You Want To Modify:\n\t\t\t1.Personal Details");
-                                                System.out.println("\n\t\t\t2.Travel Details\n\t\t\t3.Back");
+
+                                                System.out.println("\t\t________________________________________________________");
+                                                System.out.println("\n\t\tChoose The Type Of Details You Want To Modify:\n\t\t\t1.Personal Details");
+                                                System.out.println("\t\t\t2.Travel Details\n\t\t\t3.Back");
+
+                                                System.out.println("\t\t________________________________________________________");
 
                                                 opt4 = check();
                                                 switch (opt4) {
                                                     case 1://personal
-                                                        System.out.println("Modify personal details: ");
-                                                        System.out.println("1.Modify name  2.Change number of tickets to be book");
+                                                        System.out.println("\n\t\tModify personal details: ");
+                                                        System.out.println("\t\t1.Modify name  \n\t\t2.Change number of tickets to be book");
                                                         int choice = check();
                                                         if(choice==1) {
-                                                            System.out.println("Enter your new name.");
+                                                            System.out.print("\t\tEnter your new name.  :");
                                                             c.client.name = sc.next();
                                                         }
                                                         else if(choice==2){
-                                                            System.out.println("Enter no of tickets you want to book : ");
+                                                            System.out.println("\t\tEnter no of tickets you want to book : ");
                                                             c.members = check();
                                                         }
-                                                        else System.out.println("Invalid option!!");
+                                                        else System.out.println("\t\tInvalid option!!");
                                                         break;
                                                     case 2://modify travel details
-                                                        System.out.println("Please enter your new travel locations.... ");
-                                                        System.out.println("Which continent do you want to visit?\n1.Europe\n2.Asia\n3.North America\n");
+                                                        System.out.println("\t\tPlease enter your new travel locations.... ");
+
+                                                        System.out.println("\t\t________________________________________________________");
+                                                        System.out.println("\t\tWhich continent do you want to visit?\n\t\t1.Europe\n\t\t2.Asia\n\t\t3.North America\n");
+
+                                                        System.out.println("\t\t________________________________________________________");
                                                         int newContinent = check();
                                                         while (true) {
                                                             //countiChoice = ;
@@ -322,22 +350,22 @@ public class Main {
                                                                 break;
                                                             }
                                                             else{
-                                                                System.out.println("Enter a valid option!!");
+                                                                System.out.println("\t\tEnter a valid option!!");
                                                                 newContinent = check();
                                                             }
                                                         }
                                                         c.acceptBucket(continent[newContinent - 1]);
                                                        // hash.create(c);
-                                                        System.out.println("Travel details are modified successfully!!");
-                                                        System.out.println("Please visit 'view travel details' to view your updated travel details !!");
+                                                        System.out.println("\t\tTravel details are modified successfully!!");
+                                                        System.out.println("\t\tPlease visit 'view travel details' to view your updated travel details !!");
                                                         modification=true;
                                                         break;
 
                                                     case 3:
-                                                        System.out.println("Going back ...");
+                                                        System.out.println("\t\tGoing back ...");
                                                         break;
                                                     default :
-                                                        System.out.println("Invalid Input!!");
+                                                        System.out.println("\t\tInvalid Input!!");
                                                         break;
                                                 }
                                                 if(modification)break;
@@ -345,19 +373,19 @@ public class Main {
                                             break;
 
                                         case 2:
-                                            System.out.println("Going back!!");
+                                            System.out.println("\t\tGoing back!!");
                                             break;
                                         default:
-                                            System.out.println("Invalid input!!");
+                                            System.out.println("\t\tInvalid input!!");
                                             break;
                                     }
                                 } while (opt3 != 2);
                                 break;
                             case 4:
-                                System.out.println("Going back");
+                                System.out.println("\t\tGoing back");
                                 break;
                             default:
-                                System.out.println("Invalid input!!");
+                                System.out.println("\t\tInvalid input!!");
                                 break;
                         }
                         // }while(edit!=4);

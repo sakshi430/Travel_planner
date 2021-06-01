@@ -41,6 +41,7 @@ public class Customer {
 
     static int check(){                    //check if the input entered by the user is int or not
         Scanner sc=new Scanner(System.in);
+        System.out.print("\t\tEnter input: ");
         String temp=sc.next();
 
         boolean flag=true;
@@ -60,15 +61,16 @@ public class Customer {
 
 
 
+
     public void acceptPersonalDetails(){
         int option = -1;
 
-        System.out.print("Enter your name: ");
+        System.out.print("\t\tEnter your name :  ");
         client.name = input.next();
-        System.out.print("Enter your age: ");
+        System.out.print("\t\tEnter your age.");
         client.age = check();
 
-        System.out.println("1.Travelling with family       2.Business Trip");
+        System.out.println("\t\t1.Travelling with family       2.Business Trip");
         option = check();
         do {
             if (option == 1) {
@@ -80,57 +82,57 @@ public class Customer {
                 family=false;
                 break;
             }else{
-                System.out.println("Enter valid option!!");
+                System.out.println("\t\tEnter valid option!!");
                 option = check();
             }
         } while (option != 1 && option != 2);
     }
 
     public void acceptFamilyDetails(){  //
-        System.out.print("Enter number of tickets you want to book: ");
+        System.out.print("\t\tEnter number of tickets you want to book.");
         this.members = check();
-        System.out.print("Enter number of people with age 80+: ");
+        System.out.print("\t\tEnter number of people with age 80+.");
         int eighty = check();
         //less than 5
     }
 
     public void acceptBusinessTripDetails(){   //
-        System.out.print("Enter number of tickets you want to book: ");
+        System.out.print("\t\tEnter number of tickets you want to book: ");
         this.members = check();
 
     }
 
-    public void questionnaire() {
-
-    }
 
 
 
     public void acceptBucket(Continents conti) {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Make your bucket list");
+        System.out.println("\n\t\t________________________________________________________");
+        System.out.println("\t\tMake your bucket list");
+        System.out.println();
+
         for (int i = 1; i < conti.allPlaces.length; i++) {
-            System.out.println(i + ". " + conti.allPlaces[i].name);
+            System.out.println("\t\t"+i + ". " + conti.allPlaces[i].name);
         }
-        System.out.println("0.Go back to main menu...");
+        System.out.println("\t\t0.Go back to main menu...");
         int choose = -1;
         int b = 1;
         choices = new ArrayList<>();
         choices.add(0);
         bucketList[0] = new Location();
         bucketList[0].name = "India";
-        System.out.println("Enter country numbers you want to visit (Enter 0 to stop):  ");
+        System.out.println("\t\tEnter country numbers you want to visit (Enter 0 to stop):  ");
         while (choose != 0) {
             choose = check();
             // System.out.print("Enter: ");
             if(choose>=8 || choose<0) {
-                System.out.println("Enter a valid option!!");
+                System.out.println("\t\tEnter a valid option!!");
                 continue;
             }
             //choose = check();
             if(choices.contains(choose) && choose!=0){
-                System.out.println("Country is already added to your bucket list!!! ");
+                System.out.println("\t\tCountry is already added to your bucket list!!! ");
                 continue;
             }
             // if (choose != 0) {
@@ -138,7 +140,7 @@ public class Customer {
                 choices.add(choose);
                 bucketList[b] = new Location();
                 bucketList[b].name = conti.allPlaces[choose].name;
-                System.out.println(bucketList[b].name + " Added");
+                System.out.println("\t\t"+bucketList[b].name + " Added");
                 b += 1;
             }
 
@@ -217,33 +219,40 @@ public class Customer {
     public void DisplayCustomerDetails() {
        //    name, id, age, family details, no of tickets booked......family
         //business->name, medical history
-        System.out.println("-----  Customer details -----");
-        System.out.println("Name : " + client.name);
-        System.out.println("Customer Id : " + id);
-        System.out.println("Age : " + client.age);
-        System.out.println("No of tickets booked : "+ members);
+        System.out.println("\t\t-----  Customer details -----");
+        System.out.println("\t\tName : " + client.name);
+        System.out.println("\t\tCustomer Id : " + id);
+        System.out.println("\t\tAge : " + client.age);
+        System.out.println("\t\tNo of tickets booked : "+ members);
     }
 
     public void DisplayTravelsDetails() {
         //    , bucketlist// shortest path, minimum travel duration
         //no of tickets
         //Hhello xxx here are your travel details...
-        System.out.println("Hello "+ client.name +"!" + "     Here are your Travel details...");
-        System.out.println("-----  Travel details -----\nNumber of tickets booked : "+ members);
-        System.out.println("Your Bucket List is : ");
+        System.out.println("\n\t\tHello "+ client.name +"!" + " Here are your Travel details...");
+        System.out.println("\n\t\t-----  Travel details -----\n\t\tNumber of tickets booked : "+ members);
+        System.out.println("\t\tYour Bucket List is : ");
         for(int i=0;i< choices.size();i++){
-            System.out.println(bucketList[i].name);
+            System.out.println("\t\t"+bucketList[i].name);
         }
         int i;
-        for(i=0;i<choices.size()-1;i++){
+        System.out.print("\n\t\t");
+        System.out.println("Shortest route :");
+        System.out.print("\t\t");
+        for(i=0;i<choices.size();i++){
             System.out.print(shortestRoute[i].name+" ====> ");
         }
         System.out.println(shortestRoute[i].name);
         System.out.println();
-        System.out.println("This is the shortest path, which you can take while planning your journey!");
-        System.out.println("It will surely reduce your travelling time, and you can make most out of your saved time :)");
-        System.out.println("Enjoy your journey...");
-        System.out.println("Happy travelling !!  :)");
+        System.out.println("\t\tAnd the travel duration for this path is "+minDuration+" hours");
+        System.out.println();
+        System.out.println("\t\t***************************************************************************************");
+        System.out.println("\t\tThis is the shortest path, which you can take while planning your journey!");
+        System.out.println("\t\tIt will surely reduce your travelling time, and you can make most out of your saved time :)");
+        System.out.println("\t\tEnjoy your journey...");
+        System.out.println("\t\tHappy travelling !!  :)");
+        System.out.println("\t\t***************************************************************************************");
         // this is the shortest path u can take to minimize your traveling time.
 //enjoy your journey
     }
