@@ -122,7 +122,7 @@ public class Customer {
         choices.add(0);
         bucketList[0] = new Location();
         bucketList[0].name = "India";
-        System.out.println("\t\tEnter country numbers you want to visit (Enter 0 to stop):  ");
+        System.out.println("\n\t\tEnter country numbers you want to visit (Enter 0 to stop):  ");
         while (choose != 0) {
             choose = check();
             // System.out.print("Enter: ");
@@ -140,7 +140,7 @@ public class Customer {
                 choices.add(choose);
                 bucketList[b] = new Location();
                 bucketList[b].name = conti.allPlaces[choose].name;
-                System.out.println("\t\t"+bucketList[b].name + " Added");
+                System.out.println("\t\t"+bucketList[b].name + " Added\n");
                 b += 1;
             }
 
@@ -234,7 +234,7 @@ public class Customer {
         System.out.println("\n\t\t-----  Travel details -----\n\t\tNumber of tickets booked : "+ members);
         System.out.println("\t\tYour Bucket List is : ");
         for(int i=0;i< choices.size();i++){
-            System.out.println("\t\t"+bucketList[i].name);
+            System.out.println("\t\t\t"+bucketList[i].name);
         }
         int i;
         System.out.print("\n\t\t");
@@ -257,10 +257,15 @@ public class Customer {
 //enjoy your journey
     }
 
+    /*
+     a b c
+   a 0 4 2
+   b 4 0 6
+   c 2 6 0
 
+    a>c>b
 
-
-
+    */
     public List<Integer> findMinRoute(double[][] tsp) {
         int counter = 0;
         int j = 0, i = 0;
@@ -269,16 +274,11 @@ public class Customer {
         //int r=0;
         visitedRouteList.add(0);
         int[] route = new int[tsp.length];
-
-
         while (i < tsp.length && j < tsp[i].length) {
-
             // Corner of the Matrix
             if (counter >= tsp[i].length - 1) {
                 break;
             }
-
-
             if (j != i && !(visitedRouteList.contains(j))) {
                 if (tsp[i][j] < min) {
                     min = tsp[i][j];
@@ -286,7 +286,6 @@ public class Customer {
                 }
             }
             j++;
-
             if (j == tsp[i].length) {
                 min = Integer.MAX_VALUE;
                 visitedRouteList.add(route[counter] - 1);
@@ -296,21 +295,18 @@ public class Customer {
                 counter++;
             }
         }
-
-        i = route[counter - 1] - 1;
-
+        /*i = route[counter - 1] - 1;
         for (j = 0; j < tsp.length; j++) {
-
             if ((i != j) && tsp[i][j] < min) {
                 min = tsp[i][j];
                 route[counter] = j + 1;
             }
-        }
-
-
+        }*/
         //System.out.println("ArrayList after addition of an element : " + visitedRouteList);
         return visitedRouteList;
     }
+
+
 
     void computeShortestPath(ArrayList<Integer> choices, double[][] graph) {
         List<Integer> visitedRouteList = findMinRoute(graph);

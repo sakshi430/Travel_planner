@@ -405,7 +405,7 @@ public class Main {
             }
             break;
         }*/
-        for (int i = 0; i < hash.customer.length; i++) {
+        /*for (int i = 0; i < hash.customer.length; i++) {
             if (hash.customer[i] != null) {
                 ArrayList<String> data = new ArrayList<>();
                 data.add(Integer.toString(hash.customer[i].id));
@@ -413,16 +413,16 @@ public class Main {
                 data.add(hash.customer[i].client.name);
                 // System.out.println("---" + hash.customer[i].id);
                 System.out.println(data);
-                /*for (int j = 0; j < hash.customer[i].choices.size(); j++) {
+                *//*for (int j = 0; j < hash.customer[i].choices.size(); j++) {
                     data.add(hash.customer[i].bucketList[j].name);
                 }
                 /*for (int j = 0; j < hash.customer[i].choices.size(); j++) {
                     data.add(hash.customer[i].shortestRoute[j].name);
-                }*/
+                }*//*
                 data.add(String.valueOf(hash.customer[i].minDuration));
                 //System.out.println(data);
             }
-        }
+        }*/
         writeUserData(hash.customer);
     }
 }
