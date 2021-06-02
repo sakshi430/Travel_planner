@@ -33,7 +33,6 @@ public class Main {
         continent[0].name = "Europe";
         continent[1].name = "Asia";
         continent[2].name = "North America";
-        //continent[0].name="Europe";
 
         File myObj = new File("src\\file1.txt");
         Scanner myReader = new Scanner(myObj);
@@ -85,11 +84,6 @@ public class Main {
     }
 
     public static void writeUserData(Customer[] c) throws IOException {
-        /*List<List<String>> rows = Arrays.asList(
-                Arrays.asList("Jean", "author", "Java"),
-                Arrays.asList("David", "editor", "Python"),
-                Arrays.asList("Scott", "editor", "Node.js")
-        );*/
 
         FileWriter csvWriter = new FileWriter("src\\users.csv");
         for (int i = 0; i < c.length; i++) {
@@ -100,43 +94,29 @@ public class Main {
                 data.add(c[i].client.name);
                 data.add(Integer.toString(c[i].client.age));
                 data.add(Integer.toString(c[i].members));
-                //System.out.println("---" + c[i].id);
-                //  System.out.println("***" + data.get(0));
                 for (int j = 0; j < c[i].choices.size(); j++) {
                     data.add(Integer.toString(c[i].choices.get(j)));
                 }
                 for (int j = 0; j < c[i].choices.size(); j++) {
                     data.add(c[i].bucketList[j].name);
                 }
-                System.out.println("choice "+c[i].choices.size());
+
                 for (int j = 0; j < c[i].choices.size()+1; j++) {
                     data.add(c[i].shortestRoute[j].name);
                 }
                 data.add(String.valueOf(c[i].minDuration));
-                System.out.println(data);
-                //csvWriter.append("line");
-                // csvWriter.append(",");
-                //csvWriter.append(Arrays.toString(data.toArray()));
                 csvWriter.write(String.join(",", data));
                 csvWriter.write("\n");
             }
         }
         csvWriter.flush();
         csvWriter.close();
-
     }
 
 
     public static void main(String[] args) throws IOException {
         Continents[] continent = new Continents[3];
         initialization(continent);
-      /* for (int i = 0; i < 3; i++) {
-           System.out.println("***"+continent[i].name+"***");
-            for (int j = 0; j < 8; j++) {
-                System.out.println(continent[i].allPlaces[j].name);
-            }
-        }*/
-        //Customer[] customer = new Customer[20];
         Customer c=new Customer();
         Hashing hash = new Hashing();
         readUserData(hash);
@@ -179,12 +159,7 @@ public class Main {
                             System.out.println("\t\t|\tYour customer id is " + c.id + ",  keep it for future reference.\t|");
                             System.out.println("\t\t-------------------------------------------------------------");
                         }
-                        //initialize a customer from the array of user
 
-                        // System.out.println("Enter pa");
-                        //save the password, name, id(random)  --->customer che variables...
-                        //message...registration is successful...
-                        //this is ur id, keep it for future reference
                         System.out.println("\n\t\t\tChoose the type of details you want to enter:");
                         System.out.println("\t\t\t1.Personal Details\t\t\n\t\t\t2.Travel Details\t\n\t\t\t3.Back ");
                         opt1 = check();
@@ -201,8 +176,6 @@ public class Main {
                                     System.out.println("\t\tWhich continent do you want to visit?\n\t\t1.Europe\n\t\t2.Asia\n\t\t3.North America\n");
                                     int countiChoice=check();
                                     while (true) {
-                                        //countiChoice = ;
-                                        // System.out.print("Enter: ");
                                         if (countiChoice < 4 && countiChoice > 0) {
                                             break;
                                         }
@@ -227,8 +200,6 @@ public class Main {
                         }
 
 
-                        // name , id, password, bucket list into the csv
-                        //will go into the hashtable--->object of customer
                     } while (opt1 != 3);
                     break;
                 case 2: //existing user
@@ -271,13 +242,6 @@ public class Main {
                         }
                     }
                     if(exitoption)break;
-                    //else continue;
-                    //if(!password_validation) break;
-                    //login
-                    //enter id, password
-                    //search...match ->menu
-                    //1)hashing search-->id not registered!!
-                    //if id-yes....and password do not match...1)reenter 2)go to main menu & register as a new user, go back
                     do {
                         System.out.println("\n\t\tSelect the operation that you would like to perform:");
 
@@ -293,10 +257,6 @@ public class Main {
                                 //call t personal details
                                 continue;
                             case 2:c.DisplayTravelsDetails();
-                                //System.out.println("Pleas enter your customer id");
-                                //int key = check();
-                                // hash.search(custId);
-                                //call to travel details
                                 continue;
                             case 3:
                                 do {
@@ -392,37 +352,7 @@ public class Main {
                     } while (opt2 != 4);
             }
         } while (opt != 3);
-        /*switch (countiChoice) {
-            case 1:
-                c1.acceptBucket(continent[countiChoice - 1].allPlaces);
-                break;
-            case 2: for (int j = 0; j < 8; j++) {
-                System.out.println(continent[1].allPlaces[j].name);
-            }
-            break;
-            case 3: for (int j = 0; j < 8; j++) {
-                System.out.println(continent[2].allPlaces[j].name);
-            }
-            break;
-        }*/
-        /*for (int i = 0; i < hash.customer.length; i++) {
-            if (hash.customer[i] != null) {
-                ArrayList<String> data = new ArrayList<>();
-                data.add(Integer.toString(hash.customer[i].id));
-                data.add(hash.customer[i].password);
-                data.add(hash.customer[i].client.name);
-                // System.out.println("---" + hash.customer[i].id);
-                System.out.println(data);
-                *//*for (int j = 0; j < hash.customer[i].choices.size(); j++) {
-                    data.add(hash.customer[i].bucketList[j].name);
-                }
-                /*for (int j = 0; j < hash.customer[i].choices.size(); j++) {
-                    data.add(hash.customer[i].shortestRoute[j].name);
-                }*//*
-                data.add(String.valueOf(hash.customer[i].minDuration));
-                //System.out.println(data);
-            }
-        }*/
+
         writeUserData(hash.customer);
     }
 }
